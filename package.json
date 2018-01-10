@@ -1,0 +1,26 @@
+{
+  "name": "node-cep",
+  "version": "0.0.1",
+  "description": "Brazilian ZIP code search with Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayralencar/node-cep.git"
+  },
+  "keywords": [
+    "cep",
+    "zip"
+  ],
+  "author": "@jayralencar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayralencar/node-cep/issues"
+  },
+  "homepage": "https://github.com/jayralencar/node-cep#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
