@@ -3,7 +3,6 @@ const cepController = require("./controllers/cepController");
 const app = express();
 
 var api = express.Router()
-var code;
 
 app.use('/api/v1', api)
 

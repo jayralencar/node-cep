@@ -4,8 +4,10 @@
 */
 var request = require('request');
 var util = require('util');
-var pattern1 = /\d{5}-\d{3}$/;
-var pattern2 = /\d{8}$/;
+
+// patterns to RegEx
+var pattern1 = /^\d{5}-\d{3}$/;
+var pattern2 = /^\d{8}$/;
 
 exports.find = function(req, res) {
 	if(req.query.code){
@@ -68,16 +70,29 @@ function query(url,cep){
 	return new Promise((resolve, reject)=>{
 		request(util.format(url, cep), function(err,res,body){
 			if(!body || err){
-				reject();
+				reject({
+					error: true,
+					message: "CEP inválido"
+				});
 			}else{
-				var data = JSON.parse(body);
-				if(data.erro || data.resultado == 0 || data.total == 0){
-					reject("CEP não encontrado.")
+				if(res.statusCode == 200){
+					var data = JSON.parse(body);
+					if(data.erro || data.resultado == 0 || data.total == 0){
+						reject({
+							error: true,
+							message: "CEP não encontrado"
+						})
+					}else{
+						resolve(adapt(data));
+					}
 				}else{
-					// console.log(data)
-					resolve(adapt(data));
+					reject({
+						error: true,
+						message: res.statusMessage
+					})
 				}
 			}
+
 		});
 	});
 }
