@@ -19,7 +19,6 @@ exports.find = function(req, res) {
 	}else{
 		res.status(400).send("Requisição Inválida 400");
 	}
-	
 };
 
 /*
@@ -30,26 +29,17 @@ exports.find = function(req, res) {
 function getCep(cep) {
 	return new Promise((resolve, reject) =>{
 		if(pattern1.test(cep) || pattern2.test(cep)){
-			query("https://viacep.com.br/ws/%s/json",cep).then(data=>{
+			query("https://viacep.com.br/ws/%s/json", cep).then(data=>{
+				resolve(data);
+			}).catch(query("http://api.postmon.com.br/v1/cep/%s", cep).then(data=>{
+				resolve(data);	
+			}).catch(query("http://appservidor.com.br/webservice/cep?CEP=%s", cep).then(data=>{
+				resolve(data);
+			}).catch(query("http://appservidor.com.br/webservice/cep?CEP=%s", cep).then(data=>{
 				resolve(data);
 			}).catch(e=>{
-				query("http://api.postmon.com.br/v1/cep/%s", cep).then(data=>{
-					resolve(data);
-				}).catch(e=>{
-					query("http://cep.republicavirtual.com.br/web_cep.php?cep=%s&formato=json", cep).then(data=>{
-						resolve(data);
-					}).catch(e=>{
-						query("http://appservidor.com.br/webservice/cep?CEP=%s", cep).then(data=>{
-							resolve(data);
-						}).catch(e=>{
-							reject({
-								error: true,
-								message: "CEP não encontrado"
-							});
-						});
-					});
-				});
-			});
+				reject(e);
+			}))));
 		}else{
 			reject({
 				error: true,
@@ -61,7 +51,7 @@ function getCep(cep) {
 
 /*
 *	query cep by url and code
-*
+*	
 *	@param {String} url
 *	@param {String} cep
 * 	@return Promise
@@ -89,10 +79,9 @@ function query(url,cep){
 					reject({
 						error: true,
 						message: res.statusMessage
-					})
+					});
 				}
 			}
-
 		});
 	});
 }
