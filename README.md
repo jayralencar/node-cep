@@ -17,4 +17,4 @@ Start App
 ```
 npm start
 ``` 
-Open [http://localhost:3000/api/v1/cep?code=63050223](http://localhost:3000/api/v1/cep?code=63050223) on Browser
+Open [http://localhost:3000/api/v1/cep?code=63050222](http://localhost:3000/api/v1/cep?code=63050222) on Browser

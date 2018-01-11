@@ -1,5 +1,4 @@
 const express = require('express');
-const find = require("./findcep");
 const cepController = require("./controllers/cepController");
 const app = express();
 
