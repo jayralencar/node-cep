@@ -14,7 +14,7 @@ exports.find = function(req, res) {
 		getCep(req.query.code).then(data=>{
 			res.status(200).send(data);
 		}).catch(err=>{
-			res.status(200).send(err);
+			res.status(400).send(err);
 		});
 	}else{
 		res.status(400).send("Requisição Inválida 400");
