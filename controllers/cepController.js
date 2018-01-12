@@ -2,12 +2,9 @@
 *	cepController
 *	Find ZIP code and format response
 */
-var request = require('request');
-var util = require('util');
-
-// patterns to RegEx
-var pattern1 = /^\d{5}-\d{3}$/;
-var pattern2 = /^\d{8}$/;
+var request = require('request'),
+	util = require('util'),
+	pattern = /^\d{5}-\d{3}$|^\d{8}$/;
 
 exports.find = function(req, res) {
 	if(req.query.code){
@@ -28,7 +25,7 @@ exports.find = function(req, res) {
 */
 function getCep(cep) {
 	return new Promise((resolve, reject) =>{
-		if(pattern1.test(cep) || pattern2.test(cep)){
+		if(pattern.test(cep)){
 			query("https://viacep.com.br/ws/%s/json", cep).then(data=>{
 				resolve(data);
 			}).catch(query("http://api.postmon.com.br/v1/cep/%s", cep).then(data=>{

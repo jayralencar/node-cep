@@ -1,6 +1,6 @@
 {
   "name": "node-cep",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Brazilian ZIP code search with Node.js",
   "main": "index.js",
   "scripts": {
